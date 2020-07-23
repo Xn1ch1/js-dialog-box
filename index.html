@@ -1,0 +1,92 @@
+<html>
+
+    <head>
+    
+        <link rel="stylesheet" href="ConfirmDialogue.css" />
+    
+    </head>
+    
+    <body>
+        <button id="buttonA">A</button>
+        <button id="buttonB">B</button>
+        <button id="buttonC">C</button>
+        <button id="buttonD">D</button>
+        <button id="buttonE">E</button>
+    </body>
+
+    <script src="ConfirmDialogue.js"></script>
+    <script>
+
+        document.getElementById('buttonA').addEventListener('click',  async () => {
+
+            const dialogue = new ConfirmDialogue({
+                trueButtonText: "Yes",
+                falseButtonText: "No",
+                messageText: "Do you want to see message A?"
+            });
+
+            if (await dialogue.respond()) {
+                alert('This is message A');
+            };
+
+        });
+
+        document.getElementById('buttonB').addEventListener('click',  async () => {
+
+            const dialogue = new ConfirmDialogue({
+                trueButtonText: "OK",
+                titleText: 'Cant Escape',
+                messageText: "You WILL see message B"
+            });
+
+            if (await dialogue.respond()) {
+                alert('This is message B');
+            };
+
+        });
+
+        document.getElementById('buttonC').addEventListener('click',  async () => {
+
+            const dialogue = new ConfirmDialogue({
+                trueButtonText: "True",
+                falseButtonText: "False",
+                messageText: "... I am the best?",
+                titleText: "True or false..."
+            });
+
+            if (await dialogue.respond()) {
+                alert('You are correct');
+            } else {
+                alert('You are wrong');
+            };
+
+        });
+
+        document.getElementById('buttonD').addEventListener('click',  async () => {
+
+            const dialogue = new ConfirmDialogue({
+                trueButtonText: "Yes",
+                falseButtonText: "No",
+                cancelButtonText: 'Cancel',
+                messageText: "This one has another option, the cancel option for when you dont want to do anything",
+                titleText: "More Buttons"
+            });
+
+            if (await dialogue.respond()) {
+                alert('You pressed yes');
+            } else {
+                alert('You pressed no');
+            };
+
+        });
+
+        document.getElementById('buttonE').addEventListener('click',  async () => {
+
+            const dialogue = new ConfirmDialogue({});
+            await dialogue.respond();
+
+        });
+
+    </script>
+
+</html>
