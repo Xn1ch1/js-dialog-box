@@ -1,121 +1,129 @@
 class ConfirmDialogue {
 
-    constructor({
+	constructor({
 
-        titleText,
-        messageText,
-        trueButtonText,
-        falseButtonText,
-        cancelButtonText
+		titleText,
+		messageText,
+		trueButtonText,
+		falseButtonText,
+		neutralButtonText
 
-    }) {
+	}) {
 
-        this.titleText = titleText || 'Error';
-        this.messageText = messageText || 'Something unexpected has gone wrong. If the problem persists, contact your administrator';
-        this.trueButtonText = trueButtonText || 'OK';
-        this.falseButtonText = falseButtonText || null;
-        this.cancelButtonText = cancelButtonText || null;
+		this.titleText = titleText || 'Error';
+		this.messageText = messageText || 'Something unexpected has gone wrong. If the problem persists, contact your administrator';
+		this.trueButtonText = trueButtonText || 'OK';
+		this.falseButtonText = falseButtonText || null;
+		this.neutralButtonText = neutralButtonText || null;
 
-        this.hasFalse = falseButtonText != null;
-        this.hasCancel = cancelButtonText != null;
+		this.hasFalse = falseButtonText != null;
+		this.hasNeutral = neutralButtonText != null;
 
-        this.dialogue = undefined;
-        this.trueButton = undefined;
-        this.falseButton = undefined;
-        this.cancelButton = undefined;
-        this.parent = document.body;
+		this.dialogue = undefined;
+		this.trueButton = undefined;
+		this.falseButton = undefined;
+		this.neutralButton = undefined;
+		this.parent = document.body;
 
-        this._createDialog();
-        this._appendDialog();
+		this._createDialog(this);
+		this._appendDialog();
 
-    }
 
-    _createDialog() {
+	}
 
-        this.dialogue = document.createElement("div");
-        this.dialogue.classList.add("confirm-dialogue");
+	_createDialog(context) {
 
-        const title = document.createElement("h3");
-        title.textContent = this.titleText;
-        title.classList.add("confirm-dialogue-title");
-        this.dialogue.appendChild(title);
+		this.dialogue = document.createElement("div");
+		this.dialogue.classList.add("confirm-dialogue");
 
-        const question = document.createElement("h4");
-        question.textContent = this.messageText;
-        question.classList.add("confirm-dialogue-message");
-        this.dialogue.appendChild(question);
+		this.dialogue.style.opacity = 0;
 
-        const buttonContainer = document.createElement('div');
-        buttonContainer.classList.add('confirm-dialogue-button-container');
-        this.dialogue.appendChild(buttonContainer);
+		const title = document.createElement("h3");
+		title.textContent = this.titleText;
+		title.classList.add("confirm-dialogue-title");
+		this.dialogue.appendChild(title);
 
-        this.trueButton = document.createElement("a");
-        this.trueButton.classList.add(
-            "confirm-dialogue-button",
-            "confirm-dialogue-button--true"
-        );
-        this.trueButton.textContent = this.trueButtonText;
-        buttonContainer.appendChild(this.trueButton);
+		const question = document.createElement("h4");
+		question.textContent = this.messageText;
+		question.classList.add("confirm-dialogue-message");
+		this.dialogue.appendChild(question);
 
-        if (this.hasFalse) {
-            this.falseButton = document.createElement("a");
-            this.falseButton.classList.add(
-                "confirm-dialogue-button",
-                "confirm-dialogue-button--false"
-            );
-            this.falseButton.textContent = this.falseButtonText;
-            buttonContainer.appendChild(this.falseButton);
-        }
+		const buttonContainer = document.createElement('div');
+		buttonContainer.classList.add('confirm-dialogue-button-container');
+		this.dialogue.appendChild(buttonContainer);
 
-        if (this.hasCancel) {
-            this.cancelButton = document.createElement("a");
-            this.cancelButton.classList.add(
-                "confirm-dialogue-button",
-                "confirm-dialogue-button--cancel"
-            );
-            this.cancelButton.textContent = this.cancelButtonText;
-            buttonContainer.appendChild(this.cancelButton);
-        }
+		this.trueButton = document.createElement("a");
+		this.trueButton.classList.add(
+			"confirm-dialogue-button",
+			"confirm-dialogue-button--true"
+		);
+		this.trueButton.textContent = this.trueButtonText;
+		this.trueButton.addEventListener('click', function() {
+			context._destroy();
+		});
+		buttonContainer.appendChild(this.trueButton);
 
-    }
+		if (this.hasFalse) {
+			this.falseButton = document.createElement("a");
+			this.falseButton.classList.add(
+				"confirm-dialogue-button",
+				"confirm-dialogue-button--false"
+			);
+			this.falseButton.textContent = this.falseButtonText;
+			this.falseButton.addEventListener('click', function() {
+				context._destroy();
+			});
+			buttonContainer.appendChild(this.falseButton);
+		}
 
-    _appendDialog() {
-        this.parent.appendChild(this.dialogue);
-    }
+		if (this.hasNeutral) {
+			this.neutralButton = document.createElement("a");
+			this.neutralButton.classList.add(
+				"confirm-dialogue-button",
+				"confirm-dialogue-button--neutral"
+			);
+			this.neutralButton.textContent = this.neutralButtonText;
+			this.neutralButton.addEventListener('click', function() {
+				context._destroy();
+			});
+			buttonContainer.appendChild(this.neutralButton);
+		}
 
-    _destroy() {
-        this.parent.removeChild(this.dialogue);
-        delete this;
-    }
+	}
 
-    respond() {
-        return new Promise((resolve, reject) => {
+	_appendDialog() {
+		var d = this.dialogue;
+		this.parent.appendChild(d);
+		setTimeout(function(){
+			d.style.opacity = 1;
+		}, 0);
+	}
 
-            const somethingWentWrongUponCreation = !this.dialogue || !this.trueButton;
+	_destroy() {
+		this.parent.removeChild(this.dialogue);
+		delete this;
+	}
 
-            if (somethingWentWrongUponCreation) {
-                reject("Something went wrong upon modal creation");
-            }
+	respond() {
+		return new Promise((resolve, reject) => {
 
-            this.trueButton.addEventListener("click", () => {
-                resolve(true);
-                this._destroy();
-            });
+			const somethingWentWrongUponCreation = !this.dialogue || !this.trueButton;
 
-            if (this.hasFalse) {
-                this.falseButton.addEventListener("click", () => {
-                    resolve(false);
-                    this._destroy();
-                });
-            }
+			if (somethingWentWrongUponCreation) {
+				reject("Something went wrong upon modal creation");
+			}
 
-            if (this.hasCancel) {
-                this.cancelButton.addEventListener("click", () => {
-                    this._destroy();
-                });
-            }
+			this.trueButton.addEventListener("click", () => {
+				resolve(true);
+			});
 
-        });
-    }
+			if (this.hasFalse) {
+				this.falseButton.addEventListener("click", () => {
+					resolve(false);
+				});
+			}
+
+		});
+	}
 
 }
