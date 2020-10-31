@@ -17,7 +17,7 @@ Javascript Dialog Box is a simple to use library for making dialog boxes in pure
 By default the dialog will show an ok button and an error message.
 
 ```sh
-const dialog = new DialogBox({});
+const dialog = new DialogBox();
 ```
 
 ### Optional Parameters
