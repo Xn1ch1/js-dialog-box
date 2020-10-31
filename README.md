@@ -7,12 +7,12 @@ Javascript Dialog Box is a simple to use library for making dialog boxes in pure
   - Async use for response handling
   - 3 button, true, false (optional) & neutral (optional)
 
-# New Features!
+## New Features!
 
   - Default layout, add only invoking code to show an error message
 
 
-### Basic Use
+## Basic Use
 
 By default the dialog will show an ok button and an error message.
 
@@ -20,7 +20,7 @@ By default the dialog will show an ok button and an error message.
 const dialog = new DialogBox({});
 ```
 
-Optional Parameters
+# Optional Parameters
 
 ```sh
 trueButtonText: 'Message to show on the positive button'
@@ -30,7 +30,7 @@ messageText: 'Message to show in the body of the dialog'
 titleText: 'Title text int he dialog'
 ```
 
-Full Use
+# Full Use
 
 ```sh
 async () => {
