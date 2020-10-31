@@ -2,24 +2,24 @@ class DialogBox {
 
 	constructor({
 
-		titleText,
-		messageText,
-		trueButtonText,
-		falseButtonText,
-		neutralButtonText
+        titleText = 'Error',
+		messageText = 'Something unexpected has gone wrong. If the problem persists, contact your administrator',
+		trueButtonText = 'OK',
+		falseButtonText = null,
+		neutralButtonText = null,
 
-	}) {
+	} = {}) {
 
-		this.titleText = titleText || 'Error';
-		this.messageText = messageText || 'Something unexpected has gone wrong. If the problem persists, contact your administrator';
-		this.trueButtonText = trueButtonText || 'OK';
-		this.falseButtonText = falseButtonText || null;
-		this.neutralButtonText = neutralButtonText || null;
+		this.titleText = titleText;
+		this.messageText = messageText;
+		this.trueButtonText = trueButtonText;
+		this.falseButtonText = falseButtonText;
+		this.neutralButtonText = neutralButtonText;
 
 		this.hasFalse = falseButtonText != null;
 		this.hasNeutral = neutralButtonText != null;
 
-		this.dialogue = undefined;
+		this.dialog = undefined;
 		this.trueButton = undefined;
 		this.falseButton = undefined;
 		this.neutralButton = undefined;
@@ -28,34 +28,33 @@ class DialogBox {
 		this._createDialog(this);
 		this._appendDialog();
 
-
 	}
 
 	_createDialog(context) {
 
-		this.dialogue = document.createElement("div");
-		this.dialogue.classList.add("confirm-dialogue");
+		this.dialog = document.createElement("div");
+		this.dialog.classList.add("dialog-box");
 
-		this.dialogue.style.opacity = 0;
+		this.dialog.style.opacity = 0;
 
 		const title = document.createElement("h3");
 		title.textContent = this.titleText;
-		title.classList.add("confirm-dialogue-title");
-		this.dialogue.appendChild(title);
+		title.classList.add("dialog-box-title");
+		this.dialog.appendChild(title);
 
 		const question = document.createElement("h4");
 		question.textContent = this.messageText;
-		question.classList.add("confirm-dialogue-message");
-		this.dialogue.appendChild(question);
+		question.classList.add("dialog-box-message");
+		this.dialog.appendChild(question);
 
 		const buttonContainer = document.createElement('div');
-		buttonContainer.classList.add('confirm-dialogue-button-container');
-		this.dialogue.appendChild(buttonContainer);
+		buttonContainer.classList.add('dialog-box-button-container');
+		this.dialog.appendChild(buttonContainer);
 
 		this.trueButton = document.createElement("a");
 		this.trueButton.classList.add(
-			"confirm-dialogue-button",
-			"confirm-dialogue-button--true"
+			"dialog-box-button",
+			"dialog-box-button--true"
 		);
 		this.trueButton.textContent = this.trueButtonText;
 		this.trueButton.addEventListener('click', function() {
@@ -66,8 +65,8 @@ class DialogBox {
 		if (this.hasFalse) {
 			this.falseButton = document.createElement("a");
 			this.falseButton.classList.add(
-				"confirm-dialogue-button",
-				"confirm-dialogue-button--false"
+				"dialog-box-button",
+				"dialog-box-button--false"
 			);
 			this.falseButton.textContent = this.falseButtonText;
 			this.falseButton.addEventListener('click', function() {
@@ -79,8 +78,8 @@ class DialogBox {
 		if (this.hasNeutral) {
 			this.neutralButton = document.createElement("a");
 			this.neutralButton.classList.add(
-				"confirm-dialogue-button",
-				"confirm-dialogue-button--neutral"
+				"dialog-box-button",
+				"dialog-box-button--neutral"
 			);
 			this.neutralButton.textContent = this.neutralButtonText;
 			this.neutralButton.addEventListener('click', function() {
@@ -92,7 +91,7 @@ class DialogBox {
 	}
 
 	_appendDialog() {
-		var d = this.dialogue;
+		var d = this.dialog;
 		this.parent.appendChild(d);
 		setTimeout(function(){
 			d.style.opacity = 1;
@@ -100,14 +99,14 @@ class DialogBox {
 	}
 
 	_destroy() {
-		this.parent.removeChild(this.dialogue);
+		this.parent.removeChild(this.dialog);
 		delete this;
 	}
 
 	respond() {
 		return new Promise((resolve, reject) => {
 
-			const somethingWentWrongUponCreation = !this.dialogue || !this.trueButton;
+			const somethingWentWrongUponCreation = !this.dialog || !this.trueButton;
 
 			if (somethingWentWrongUponCreation) {
 				reject("Something went wrong upon modal creation");
