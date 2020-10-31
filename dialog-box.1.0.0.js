@@ -1,4 +1,4 @@
-class ConfirmDialogue {
+class DialogBox {
 
 	constructor({
 

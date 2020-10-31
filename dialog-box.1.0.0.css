@@ -1,23 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-/* CUSTOMISATION */
-.confirm-dialogue {
+.dialog-box {
 	max-width: 500px;
 	color: #444444;
 }
-.confirm-dialogue-button--false {
+.dialog-box-button--false {
 	background: #D93223;
 	color: #FFFFFF;
 }
-.confirm-dialogue-button--true {
+.dialog-box-button--true {
 	background: #038C5A;
 	color: #FFFFFF;
 }
-.confirm-dialogue-button--neutral {
+.dialog-box-button--neutral {
 	background: #777777;
 	color: #FFFFFF;
 }
-
-.confirm-dialogue {
+.dialog-box {
 	font-family: 'Roboto';
 	width: 100%;
 	display: block;
@@ -35,19 +33,19 @@
 	overflow: hidden;
 	transition: opacity 0.3s;
 }
-.confirm-dialogue-message {
+.dialog-box-message {
 	padding: 16px 16px 32px 16px;
 	font-size: 16px;
 	font-weight: 300;
 }
-.confirm-dialogue-title {
+.dialog-box-title {
 	background: #EFEFEF;
 	margin-top: 0;
 	padding: 16px;
 	font-size: 20px;
 	font-weight: 300;
 }
-.confirm-dialogue-button {
+.dialog-box-button {
 	min-width: 20%;
 	text-align: center;
 	cursor: pointer;
@@ -61,10 +59,10 @@
 	font-weight: 300;
 	transition: opacity 0.5s;
 }
-.confirm-dialogue-button:hover {
+.dialog-box-button:hover {
 	opacity: 0.8;
 }
-.confirm-dialogue-button-container {
+.dialog-box-button-container {
 	text-align: right;
 	padding: 2.5%;
 	background: #EFEFEF;

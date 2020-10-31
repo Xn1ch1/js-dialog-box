@@ -2,7 +2,8 @@
 
 	<head>
 	
-		<link rel="stylesheet" href="ConfirmDialogue.css" />
+		<link rel="stylesheet" href="dialog-box.1.0.0.css" />
+        <script src="dialog-box.1.0.0.js"></script>
 	
 	</head>
 	
@@ -14,19 +15,18 @@
 		<button id="buttonE">E</button>
 	</body>
 
-	<script src="ConfirmDialogue.js"></script>
 	<script>
 
 		document.getElementById('buttonA').addEventListener('click',  async () => {
 
-			const dialogue = new ConfirmDialogue({
+			const dialog = new DialogBox({
 				trueButtonText: "Yes",
 				falseButtonText: "No",
 				messageText: "Do you want to see message A?"
 			});
 
-			if (await dialogue.respond()) {
-				const dialogue = new ConfirmDialogue({
+			if (await dialog.respond()) {
+				const dialog = new DialogBox({
 					messageText: 'This is message B',
 					titleText: 'Message B'
 				});
@@ -36,14 +36,14 @@
 
 		document.getElementById('buttonB').addEventListener('click',  async () => {
 
-			const dialogue = new ConfirmDialogue({
+			const dialog = new DialogBox({
 				trueButtonText: "OK",
 				titleText: 'Cant Escape',
 				messageText: "You WILL see message B"
 			});
 
-			if (await dialogue.respond()) {
-				const dialogue = new ConfirmDialogue({
+			if (await dialog.respond()) {
+				const dialog = new DialogBox({
 					messageText: 'This is message B',
 					titleText: 'Message B'
 				});
@@ -53,20 +53,20 @@
 
 		document.getElementById('buttonC').addEventListener('click',  async () => {
 
-			const dialogue = new ConfirmDialogue({
+			const dialog = new DialogBox({
 				trueButtonText: "True",
 				falseButtonText: "False",
 				messageText: "... I am the best?",
 				titleText: "True or false..."
 			});
 
-			if (await dialogue.respond()) {
-				const dialogue = new ConfirmDialogue({
+			if (await dialog.respond()) {
+				const dialog = new DialogBox({
 					messageText: 'You are correct',
 					titleText: 'Well done'
 				});
 			} else {
-				const dialogue = new ConfirmDialogue({
+				const dialog = new DialogBox({
 					messageText: 'You are wrong'
 				});
 			};
@@ -75,7 +75,7 @@
 
 		document.getElementById('buttonD').addEventListener('click',  async () => {
 
-			const dialogue = new ConfirmDialogue({
+			const dialog = new DialogBox({
 				trueButtonText: "Yes",
 				falseButtonText: "No",
 				neutralButtonText: 'Cancel',
@@ -83,13 +83,13 @@
 				titleText: "More Buttons"
 			});
 
-			if (await dialogue.respond()) {
-				const dialogue = new ConfirmDialogue({
+			if (await dialog.respond()) {
+				const dialog = new DialogBox({
 					messageText: 'You pressed yes',
 					titleText: 'Your answer'
 				});
 			} else {
-				const dialogue = new ConfirmDialogue({
+				const dialog = new DialogBox({
 					messageText: 'You pressed no',
 					titleText: 'Your answer'
 				});
@@ -99,7 +99,7 @@
 
 		document.getElementById('buttonE').addEventListener('click', function() {
 
-			const dialogue = new ConfirmDialogue({});
+			const dialog = new DialogBox({});
 
 		});
 
