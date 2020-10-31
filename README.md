@@ -20,7 +20,7 @@ By default the dialog will show an ok button and an error message.
 const dialog = new DialogBox({});
 ```
 
-# Optional Parameters
+### Optional Parameters
 
 ```sh
 trueButtonText: 'Message to show on the positive button'
@@ -30,7 +30,7 @@ messageText: 'Message to show in the body of the dialog'
 titleText: 'Title text int he dialog'
 ```
 
-# Full Use
+### Full Use
 
 ```sh
 async () => {
