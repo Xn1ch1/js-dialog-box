@@ -22,7 +22,8 @@ class DialogBox {
 		this.dialog = undefined;
 		this.trueButton = undefined;
 		this.falseButton = undefined;
-		this.neutralButton = undefined;
+        this.neutralButton = undefined;
+        
 		this.parent = document.body;
 
 		this._createDialog(this);
@@ -91,10 +92,10 @@ class DialogBox {
 	}
 
 	_appendDialog() {
-		var d = this.dialog;
-		this.parent.appendChild(d);
+		const diag = this.dialog;
+		this.parent.appendChild(diag);
 		setTimeout(function(){
-			d.style.opacity = 1;
+			diag.style.opacity = 1;
 		}, 0);
 	}
 
