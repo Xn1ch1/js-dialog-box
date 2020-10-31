@@ -1,2 +1,2 @@
-# js_confirm_dialogue
+# Javascript Dialog Box
  Simple Confirm Dialogue with 3 Options. Vanilla JS
