@@ -1,108 +1,96 @@
 <html>
 
-	<head>
-	
-		<link rel="stylesheet" href="dialog-box.1.0.0.css" />
-        <script src="dialog-box.1.0.1.js"></script>
-	
-	</head>
-	
-	<body>
-		<button id="buttonA">A</button>
-		<button id="buttonB">B</button>
-		<button id="buttonC">C</button>
-		<button id="buttonD">D</button>
-		<button id="buttonE">E</button>
-	</body>
+    <head>
+        <script src="custom-dialog.1.0.0.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		
+    </head>
 
-	<script>
+    <body>
 
-		document.getElementById('buttonA').addEventListener('click',  async () => {
+        <button id="bare-min">Only Notification</button>
+        <button id="positive-negative">Positive & Negative</button>
+        <button id="all-three">All Buttons</button>
+        <button id="dismiss">Dismissable</button>
 
-			const dialog = new DialogBox({
-				trueButtonText: "Yes",
-				falseButtonText: "No",
-				messageText: "Do you want to see message A?"
-			});
+    </body>
 
-			if (await dialog.respond()) {
-				const dialog = new DialogBox({
-					messageText: 'This is message B',
-					titleText: 'Message B'
-				});
-			};
+    <script>
 
-		});
+        function positiveAction() {
 
-		document.getElementById('buttonB').addEventListener('click',  async () => {
+			alert('You pressed the positive button');
 
-			const dialog = new DialogBox({
-				trueButtonText: "OK",
-				titleText: 'Cant Escape',
-				messageText: "You WILL see message B"
-			});
+        }
+        function negativeAction() {
 
-			if (await dialog.respond()) {
-				const dialog = new DialogBox({
-					messageText: 'This is message B',
-					titleText: 'Message B'
-				});
-			};
+			alert('You pressed the negative button');
 
-		});
+        }
 
-		document.getElementById('buttonC').addEventListener('click',  async () => {
+        function neutralAction() {
 
-			const dialog = new DialogBox({
-				trueButtonText: "True",
-				falseButtonText: "False",
-				messageText: "... I am the best?",
-				titleText: "True or false..."
-			});
+			alert('You pressed the neutral button');
 
-			if (await dialog.respond()) {
-				const dialog = new DialogBox({
-					messageText: 'You are correct',
-					titleText: 'Well done'
-				});
-			} else {
-				const dialog = new DialogBox({
-					messageText: 'You are wrong'
-				});
-			};
+        }
 
-		});
+		document.getElementById('bare-min').onclick = () => {
 
-		document.getElementById('buttonD').addEventListener('click',  async () => {
+			new CustomDialog('You have not included an optional thing on the report, default values have been used').show();
 
-			const dialog = new DialogBox({
-				trueButtonText: "Yes",
-				falseButtonText: "No",
-				neutralButtonText: 'Cancel',
-				messageText: "This one has another option, the cancel option for when you dont want to do anything",
-				titleText: "More Buttons"
-			});
+		}
 
-			if (await dialog.respond()) {
-				const dialog = new DialogBox({
-					messageText: 'You pressed yes',
-					titleText: 'Your answer'
-				});
-			} else {
-				const dialog = new DialogBox({
-					messageText: 'You pressed no',
-					titleText: 'Your answer'
-				});
-			};
+		document.getElementById('positive-negative').onclick = () => {
 
-		});
+			new CustomDialog('You have not included an optional thing on the report, continue with defaults?',
+				{
+					positive: {
+                        title: 'Continue',
+                        action: positiveAction
+                    },
+                    negative: {
+                        title: 'Cancel',
+                        action: neutralAction
+                    }
+                }).show();
 
-		document.getElementById('buttonE').addEventListener('click', function() {
+		}
 
-			const dialog = new DialogBox();
+		document.getElementById('all-three').onclick = () => {
 
-		});
+			new CustomDialog('How would you like to respond to the meeting request?',
+				{
+                    positive: {
+                        action: positiveAction
+                    },
+                    negative: {
+                        action: negativeAction
+                    },
+                    neutral: {
+                        title: 'Cancel'
+                    }
+                }).show();
 
-	</script>
+		}
+
+		document.getElementById('dismiss').onclick = () => {
+
+			new CustomDialog('Do a thing or dismiss?',
+				{
+					positive: {
+						title: 'Yes',
+						action: positiveAction
+					},
+					negative: {
+						title: 'No',
+						action: neutralAction
+					},
+                    animate: CustomDialog.ANIMATE.FADE,
+					dismiss: CustomDialog.DISMISSABLE.TRUE
+                }).show();
+
+		}
+
+    </script>
 
 </html>
