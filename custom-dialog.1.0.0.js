@@ -42,7 +42,7 @@
 		title: undefined,
 		message: undefined,
 		buttons: undefined,
-		dismiss: CustomDialog.DISMISSABLE.FALSE,
+		dismiss: CustomDialog.DISMISSIBLE.FALSE,
 		animate: CustomDialog.ANIMATE.NONE
 	}
 
@@ -69,7 +69,7 @@
 		this.negative.set = this.negative.action !== null || this.negative.title !== undefined;
 		this.neutral.set = this.neutral.action !== null || this.neutral.title !== undefined;
 
-		if (Object.values(CustomDialog.DISMISSABLE).includes(options?.dismiss)) this.dialog.dismiss = options?.dismiss;
+		if (Object.values(CustomDialog.DISMISSIBLE).includes(options?.dismiss)) this.dialog.dismiss = options?.dismiss;
 		if (Object.values(CustomDialog.ANIMATE).includes(options?.animate)) this.dialog.animate = options?.animate;
 
         if (this.dialog.message === undefined) throw(SyntaxError('Dialog message not defined'));
@@ -162,9 +162,7 @@
 		button.classList.add(`custom-dialog-button-${type}`)
 
 		button.textContent = title;
-		button.onclick = () => {
-			this._dismiss(_callback);
-		}
+		button.onclick = () => this._dismiss(_callback);
 
 		return button;
 
@@ -223,7 +221,7 @@
 
 	}
 
-	static DISMISSABLE = {
+	static DISMISSIBLE = {
 		TRUE: true,
 		FALSE: false
 	}
