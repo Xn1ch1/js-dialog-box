@@ -56,13 +56,13 @@
         this.dialog.message = message;
         this.dialog.title = options?.title || 'Alert';
 
-		this.positive.title = options?.positive?.title;
+		this.positive.title = options?.positive?.title || 'Yes';
 		this.positive.action = options?.positive?.action || null;
 
-		this.negative.title = options?.negative?.title;
+		this.negative.title = options?.negative?.title || 'No';
 		this.negative.action = options?.negative?.action || null;
 
-		this.neutral.title = options?.neutral?.title;
+		this.neutral.title = options?.neutral?.title || 'OK';
 		this.neutral.action = options?.neutral?.action || null;
 
 		this.positive.set = this.positive.action !== null || this.positive.title !== undefined;
@@ -90,8 +90,6 @@
 
 		if ((!this.positive.set && !this.negative.set) || this.neutral.set) {
 
-			if (this.neutral.title === undefined) this.neutral.title = 'OK';
-
 			this.neutral.button = this._createButton(this.neutral.title, this.neutral.action, 'neutral');
 			this.dialog.buttons.appendChild(this.neutral.button);
 
@@ -99,16 +97,12 @@
 
 		if (this.negative.title !== undefined || this.negative.action !== null) {
 
-			if (this.negative.title === undefined) this.negative.title = 'No';
-
 			this.negative.button = this._createButton(this.negative.title, this.negative.action, 'negative');
 			this.dialog.buttons.appendChild(this.negative.button);
 
 		}
 
 		if (this.positive.title !== undefined || this.positive.action !== null) {
-
-			if (this.positive.title === undefined) this.positive.title = 'Yes';
 
 			this.positive.button = this._createButton(this.positive.title, this.positive.action, 'positive');
 			this.dialog.buttons.appendChild(this.positive.button);
@@ -187,9 +181,7 @@
 
 		this.dialog.overlay = div;
 
-		if (this.dialog.dismiss) div.onclick = () => {
-			this._dismiss(null);
-		}
+		if (this.dialog.dismiss) div.onclick = () => this._dismiss(null);
 
 		return div;
 
@@ -200,9 +192,11 @@
 		this.dialog.container.classList.remove('custom-dialog-container-visible');
 
 		setTimeout(() => {
+
 			this.dialog.container.remove();
 			this.dialog.overlay.remove();
 			this.dialog = null;
+
 		}, 400);
 
 		if (typeof _callback === 'function') _callback();
