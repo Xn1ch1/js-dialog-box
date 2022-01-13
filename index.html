@@ -8,10 +8,10 @@
 
     <body>
 
-        <button id="bare-min">Only Notification</button>
-        <button id="positive-negative">Positive & Negative</button>
-        <button id="all-three">All Buttons</button>
-        <button id="dismiss">Dismissable</button>
+        <button id="only-notification">Only Notification</button><br>
+        <button id="positive-negative">Positive & Negative / Slide From Bottom</button><br>
+        <button id="all-buttons">All Buttons / Slide From Right</button><br>
+        <button id="dismiss-fade">Dismissible / Fade In</button>
 
     </body>
 
@@ -24,25 +24,24 @@
         }
         function negativeAction() {
 
-			alert('You pressed the negative button');
+            alert('You pressed the negative button');
 
         }
-
         function neutralAction() {
 
-			alert('You pressed the neutral button');
+            alert('You pressed the neutral button');
 
         }
 
-		document.getElementById('bare-min').onclick = () => {
+		document.getElementById('only-notification').onclick = () => {
 
-			new CustomDialog('You have not included an optional thing on the report, default values have been used').show();
+			new CustomDialog('This dialog has no options sent, so it shows as a notification only').show();
 
 		}
 
 		document.getElementById('positive-negative').onclick = () => {
 
-			new CustomDialog('You have not included an optional thing on the report, continue with defaults?',
+			new CustomDialog('This dialog was created with positive and negative button options. It was also set to slide in from the bottom.',
 				{
 					positive: {
                         title: 'Continue',
@@ -50,15 +49,16 @@
                     },
                     negative: {
                         title: 'Cancel',
-                        action: neutralAction
-                    }
+                        action: negativeAction
+                    },
+                    animate: CustomDialog.ANIMATE.SLIDE_BOTTOM
                 }).show();
 
 		}
 
-		document.getElementById('all-three').onclick = () => {
+		document.getElementById('all-buttons').onclick = () => {
 
-			new CustomDialog('How would you like to respond to the meeting request?',
+			new CustomDialog('This dialog was created with positive, negative and neutral button options. It was also set to slide in from the right.',
 				{
                     positive: {
                         action: positiveAction
@@ -67,15 +67,17 @@
                         action: negativeAction
                     },
                     neutral: {
-                        title: 'Cancel'
-                    }
+                        title: 'Cancel',
+                        action: neutralAction
+                    },
+                    animate: CustomDialog.ANIMATE.SLIDE_RIGHT,
                 }).show();
 
 		}
 
-		document.getElementById('dismiss').onclick = () => {
+		document.getElementById('dismiss-fade').onclick = () => {
 
-			new CustomDialog('Do a thing or dismiss?',
+			new CustomDialog('This is a dismissible dialog, you can click on the background to dismiss it. It also has fade animation turned on.',
 				{
 					positive: {
 						title: 'Yes',
@@ -83,10 +85,10 @@
 					},
 					negative: {
 						title: 'No',
-						action: neutralAction
+						action: negativeAction
 					},
                     animate: CustomDialog.ANIMATE.FADE,
-					dismiss: CustomDialog.DISMISSABLE.TRUE
+					dismiss: CustomDialog.DISMISSIBLE.TRUE
                 }).show();
 
 		}
